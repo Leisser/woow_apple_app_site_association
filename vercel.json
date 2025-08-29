@@ -6,6 +6,12 @@
       "use": "@vercel/static"
     }
   ],
+  "rewrites": [
+    {
+      "source": "/delete-account",
+      "destination": "/delete-account.html"
+    }
+  ],
   "headers": [
     {
       "source": "/.well-known/apple-app-site-association",
