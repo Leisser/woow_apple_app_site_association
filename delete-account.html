@@ -110,12 +110,12 @@
         <div class="status">
             <h3>🔗 Deep Link Status</h3>
             <p>If the Woow app is installed on your device, it should have opened automatically and navigated to the delete account page.</p>
-            <p><strong>How it works:</strong></p>
-            <ul style="margin-left: 20px; margin-top: 10px;">
-                <li><strong>iOS:</strong> Uses Universal Links (HTTPS)</li>
-                <li><strong>Android:</strong> Uses App Links (HTTPS)</li>
-                <li><strong>Fallback:</strong> Shows this page if app not installed</li>
-            </ul>
+                                <p><strong>How it works:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>iOS:</strong> Uses custom URL scheme (woow://delete-account)</li>
+                        <li><strong>Android:</strong> Uses custom URL scheme (woow://delete-account)</li>
+                        <li><strong>Fallback:</strong> Shows this page if app not installed</li>
+                    </ul>
             <p>If the app didn't open, please make sure:</p>
             <ul style="margin-left: 20px; margin-top: 10px;">
                 <li>The Woow app is installed on your device</li>
@@ -145,30 +145,30 @@
             return /Android/.test(navigator.userAgent);
         }
         
-        // Try to open the app with Universal Links/App Links
-        function openApp() {
-            const currentUrl = window.location.href;
-            
-            if (isIOS()) {
-                // For iOS, try Universal Links
-                window.location.href = currentUrl;
-                
-                // Fallback: if app doesn't open, show download link after 2 seconds
-                setTimeout(function() {
-                    if (document.hidden || document.webkitHidden) {
-                        return; // App opened successfully
+                        // Try to open the app with custom scheme
+                function openApp() {
+                    const customScheme = 'woow://delete-account';
+                    
+                    if (isIOS()) {
+                        // For iOS, try custom scheme
+                        window.location.href = customScheme;
+                        
+                        // Fallback: if app doesn't open, show download link after 2 seconds
+                        setTimeout(function() {
+                            if (document.hidden || document.webkitHidden) {
+                                return; // App opened successfully
+                            }
+                            // App didn't open, show download option
+                            showDownloadOption();
+                        }, 2000);
+                    } else if (isAndroid()) {
+                        // For Android, try custom scheme
+                        window.location.href = customScheme;
+                    } else {
+                        // For other platforms, try custom scheme
+                        window.location.href = customScheme;
                     }
-                    // App didn't open, show download option
-                    showDownloadOption();
-                }, 2000);
-            } else if (isAndroid()) {
-                // For Android, try App Links
-                window.location.href = currentUrl;
-            } else {
-                // For other platforms, try the same URL
-                window.location.href = currentUrl;
-            }
-        }
+                }
         
         function showDownloadOption() {
             const statusDiv = document.querySelector('.status');
