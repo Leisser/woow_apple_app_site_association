@@ -6,20 +6,6 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
-    {
-      "src": "/.well-known/apple-app-site-association",
-      "headers": {
-        "Content-Type": "application/json"
-      }
-    },
-    {
-      "src": "/.well-known/(.*)",
-      "headers": {
-        "Content-Type": "application/json"
-      }
-    }
-  ],
   "headers": [
     {
       "source": "/.well-known/apple-app-site-association",
